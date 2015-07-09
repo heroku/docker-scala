@@ -13,7 +13,7 @@ ENV HOME /app
 COPY ./init /usr/bin/init
 
 RUN mkdir -p /app/.jdk
-RUN curl -s --retry 3 -L https://lang-jvm.s3.amazonaws.com/jdk/cedar-14/openjdk1.8-latest.tar.gz | tar xz -C /app/.jdk
+RUN curl -s --retry 3 -L https://lang-jvm.s3.amazonaws.com/jdk/openjdk1.8.0_40-cedar14.tar.gz | tar xz -C /app/.jdk
 ENV JAVA_HOME /app/.jdk:$PATH
 ENV PATH /app/.jdk/bin:$PATH
 
