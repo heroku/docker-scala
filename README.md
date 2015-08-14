@@ -14,7 +14,7 @@ at least these contents:
 
 ```json
 {
-  "name": "You App's Name",
+  "name": "Your App's Name",
   "description": "An example app.json for heroku-docker",
   "image": "heroku/scala"
 }
