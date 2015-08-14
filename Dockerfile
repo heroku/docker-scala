@@ -1,22 +1,7 @@
 # Inherit from Heroku's stack
-FROM heroku/cedar:14
+FROM jkutner/jvm
 
-RUN mkdir -p /app/user
-WORKDIR /app/user
-
-ENV STACK "cedar-14"
-ENV HOME /app
-
-# `init` is kept out of /app so it won't be duplicated on Heroku
-# Heroku already has a mechanism for running .profile.d scripts,
-# so this is just for local parity
-COPY ./init /usr/bin/init
-
-RUN mkdir -p /app/.jdk
-RUN curl -s --retry 3 -L https://lang-jvm.s3.amazonaws.com/jdk/cedar-14/openjdk1.8-latest.tar.gz | tar xz -C /app/.jdk
-ENV JAVA_HOME /app/.jdk:$PATH
-ENV PATH /app/.jdk/bin:$PATH
-
+# Install sbt-extras
 RUN mkdir -p /app/bin
 RUN curl -s -L https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt -o /app/bin/sbt
 RUN chmod +x /app/bin/sbt
@@ -33,5 +18,3 @@ ONBUILD RUN sbt clean update
 
 ONBUILD COPY . /app/user/
 ONBUILD RUN sbt stage
-
-ENTRYPOINT ["/usr/bin/init"]
