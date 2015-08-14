@@ -1,5 +1,5 @@
 # Inherit from Heroku's stack
-FROM jkutner/jvm
+FROM heroku/jvm
 
 # Install sbt-extras
 RUN mkdir -p /app/bin
