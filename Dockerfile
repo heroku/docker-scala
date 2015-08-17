@@ -3,7 +3,7 @@ FROM heroku/jvm
 
 # Install sbt-extras
 RUN mkdir -p /app/bin
-RUN curl -s -L https://raw.githubusercontent.com/paulp/sbt-extras/master/sbt -o /app/bin/sbt
+ADD ./sbt-extras.sh /app/bin/sbt
 RUN chmod +x /app/bin/sbt
 ENV PATH /app/bin:$PATH
 
@@ -21,3 +21,7 @@ ONBUILD COPY . /app/user/
 ONBUILD RUN rm -f project/play-fork-run.sbt
 ONBUILD RUN rm -f target/universal/stage/RUNNING_PID
 ONBUILD RUN sbt stage
+
+COPY ./init.sh /usr/bin/init.sh
+RUN chmod +x /usr/bin/init.sh
+ENTRYPOINT ["/usr/bin/init.sh"]
