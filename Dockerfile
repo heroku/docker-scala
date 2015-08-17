@@ -14,7 +14,10 @@ ONBUILD RUN sbt about
 # Run sbt update to make sure the dependencies are downloaded and cached
 ONBUILD COPY ["*.sbt", "*.scala", "/app/user/"]
 ONBUILD COPY ["project/*.sbt", "project/*.scala", "/app/user/project/"]
+ONBUILD RUN rm -f project/play-fork-run.sbt
 ONBUILD RUN sbt clean update
 
 ONBUILD COPY . /app/user/
+ONBUILD RUN rm -f project/play-fork-run.sbt
+ONBUILD RUN rm -f target/universal/stage/RUNNING_PID
 ONBUILD RUN sbt stage
